@@ -11,16 +11,16 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: notes2
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
-      - name: Go to notes2 folder
-        run: cd notes2
-        
       - name: Install dependencies
-        run: npm i
+        run: npm ci --legacy-peer-deps
 
       - name: Check style
         run: npm run lint
@@ -48,12 +48,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        with: 
+        with:
           fetch-depth: '0'
 
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@4ed44965e0db8dab2b466a16da04aec3cc312fd8
-        env: 
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: false
           DEFAULT_BUMP: patch
