@@ -31,6 +31,13 @@ describe('App', () => {
     ).toBeInTheDocument();
   });
 
+  it('renders notes when the service returns data directly', async () => {
+    noteService.getAll.mockResolvedValue(initialNotes);
+    render(<App />);
+
+    expect(await screen.findByText('Learn React testing')).toBeInTheDocument();
+  });
+
   it('updates a note\'s importance', async () => {
     const updatedNote = { ...initialNotes[0], important: true };
     noteService.update.mockResolvedValue(updatedNote);

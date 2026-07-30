@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL = `${import.meta.env.VITE_API_URL || ''}/api/notes`;
-
+// const baseURL = 'http://127.0.0.1:3003/api/notes';
 const getAll = () => {
   return axios.get(baseURL).then((response) => {
     // console.log(response);

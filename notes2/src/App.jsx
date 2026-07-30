@@ -10,21 +10,36 @@ export default function App() {
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const normalizeNotes = (response) => {
+    if (Array.isArray(response)) {
+      return response;
+    }
+
+    return Array.isArray(response?.data) ? response.data : [];
+  };
+
+  const safeNotes = Array.isArray(notes) ? notes : [];
+
   useEffect(() => {
-    noteService.getAll().then((initialNotes) => {
-      // console.log(initialNotes);
-      setNotes(initialNotes.data);
+    noteService.getAll().then((response) => {
+      setNotes(normalizeNotes(response));
     });
   }, []);
 
   const toggleImportanceOf = (id) => {
-    const note = notes.find((n) => n.id === id);
+    const note = safeNotes.find((n) => n.id === id);
+    if (!note) {
+      return;
+    }
+
     const changedNote = { ...note, important: !note.important };
 
     noteService
       .update(id, changedNote)
       .then((returnedNote) => {
-        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
+        setNotes(
+          safeNotes.map((note) => (note.id !== id ? note : returnedNote)),
+        );
       })
       .catch(() => {
         // console.log(error);
@@ -45,15 +60,19 @@ export default function App() {
     };
 
     noteService.create(noteObject).then((returnedNote) => {
-      setNotes(notes.concat(returnedNote));
+      setNotes(safeNotes.concat(returnedNote));
       setNewNote('');
     });
   };
 
   const deleteNote = (id) => {
-    const note = notes.find((n) => n.id === id);
+    const note = safeNotes.find((n) => n.id === id);
+    if (!note) {
+      return;
+    }
+
     noteService.delNote(note.id).then(() => {
-      setNotes(notes.filter((note) => note.id !== id));
+      setNotes(safeNotes.filter((note) => note.id !== id));
     });
   };
 
@@ -62,16 +81,12 @@ export default function App() {
     setNewNote(e.target.value);
   };
 
-  useEffect(() => {
-    noteService.getAll().then((response) => {
-      setNotes(response.data);
-    });
-  }, []);
-
-  const notesToShow = showAll ? notes : notes.filter((note) => note.important);
+  const notesToShow = showAll
+    ? safeNotes
+    : safeNotes.filter((note) => note.important);
 
   return (
-    <div>
+    <div className="noteApp">
       <h1>Notes</h1>
       <Notification message={errorMessage} />
       <div>
@@ -80,7 +95,6 @@ export default function App() {
         </button>
       </div>
       <ul>
-        {/* {console.log(notesToShow)} */}
         {notesToShow.map((note) => (
           <Note
             key={note.id}

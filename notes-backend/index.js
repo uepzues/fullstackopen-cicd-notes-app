@@ -4,10 +4,7 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 
-const password = process.env.VITE_MONGODB_URI_PW;
-const username = process.env.VITE_MONGODB_URI_USERNAME;
-
-const url = `mongodb+srv://${username}:${password}@zuesuep.8bkzlbx.mongodb.net/fullstackopen?retryWrites=true&w=majority`;
+const url = process.env.VITE_MONGODB_URI;
 
 mongoose.set('strictQuery', false);
 
@@ -46,7 +43,7 @@ const unknownEndpoint = (request, response) => {
 };
 const app = express();
 
-app.use(requestLogger);
+// app.use(requestLogger);
 
 app.use(cors());
 

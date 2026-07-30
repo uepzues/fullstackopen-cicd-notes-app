@@ -1,20 +1,77 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 32px 16px;
+  box-sizing: border-box;
+}
+
+.noteApp {
+  width: min(100%, 560px);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  text-align: left;
+}
+
 h1 {
-  color: green;
+  color: #2f855a;
   font-style: italic;
+  margin-top: 0;
 }
 
 .note {
-  color: grey;
-  padding-top: 3px;
+  color: #4a5568;
+  padding: 8px 0;
   font-size: 15px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.note button {
+  margin-left: 8px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #2f855a;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #276749;
 }
 
 .error {
-  color: red;
-  background: lightgray;
-  font-size: 20px;
-  border-style: solid;
-  border-radius: 5px;
+  color: #c53030;
+  background: #fff5f5;
+  font-size: 16px;
+  border: 1px solid #feb2b2;
+  border-radius: 6px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
