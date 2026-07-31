@@ -15,7 +15,7 @@ This repository contains a simple "Notes" application used in the Full Stack Ope
 
 - Frontend: React (JavaScript)
 - HTTP client: axios
-- Backend: (expected) Node/Express server (not included here unless in repo)
+- Backend: (expected) Node/Express server
 
 ## Getting started
 
@@ -31,9 +31,7 @@ This repository contains a simple "Notes" application used in the Full Stack Ope
 3. Start the development server
 
    npm start
-
-By default this starts the frontend app. The app expects a backend API that serves notes at an endpoint such as `/api/notes`. If a backend is not included in this repository, you can run a separate backend following Full Stack Open Part 3 instructions or adapt the frontend to use a mocked backend.
-
+   
 - Full Stack Open — Part 3: Communicating with the server: https://fullstackopen.com/en/part3
 
 
